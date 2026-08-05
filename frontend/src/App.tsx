@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 import { PipelineRunProvider } from "@/hooks/PipelineRunContext";
 import { PaletteProvider } from "@/hooks/PaletteContext";
 import { Dashboard } from "@/components/pages/Dashboard";
@@ -36,6 +37,7 @@ export default function App() {
           </Routes>
         </BrowserRouter>
       </PipelineRunProvider>
+      <Analytics />
     </PaletteProvider>
   );
 }
