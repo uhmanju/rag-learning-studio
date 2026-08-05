@@ -1,0 +1,210 @@
+:root {
+  /* ---- Base surface/text tokens (identical across every screen) ---- */
+  --bg: #faf9ff;
+  --bg-panel: #ffffff;
+  --bg-elevated: #f4f1ff;
+  --bg-hover: #ece6ff;
+  --border: #e7e1fb;
+  --border-soft: #f0ebfd;
+  --border-strong: #d8cdf7;
+  --text: #1e1c19;
+  /* Both darkened from their original values, which measured 5.89:1
+     (--text-muted) and 2.97:1 (--text-dim) against white — the second
+     one fails WCAG AA's 4.5:1 minimum for normal text outright, and
+     both are used for substantial real content (Learning Card body
+     copy, sample-doc descriptions, status text), not just decorative
+     labels, so "technically AA" wasn't actually comfortable to read at
+     the small sizes (11-13px) used throughout. Now ~9.5:1 and ~4.6:1
+     respectively — verified, not eyeballed. */
+  --text-muted: #4a453c;
+  --text-dim: #7a7468;
+
+  /* ---- Stage identity colors (chrome only, never chunk identity) ---- */
+  --stage-upload: #9b958a;
+  --stage-parse: #2f6fed;
+  --stage-clean: #16a34a;
+  --stage-chunk: #ea7a2e;
+  --stage-embed: #8b5cf6;
+  --stage-retrieve: #e5484d;
+  --stage-prompt: #6366f1;
+  --stage-generate: #0d9488;
+  --stage-evaluate: #ca9a1e;
+
+  /* ---- Chunk identity palette (6-color cycle) ---- */
+  --chunk-0-bg: #eaf7f1;
+  --chunk-0-fg: #1f8f63;
+  --chunk-1-bg: #fdf1ea;
+  --chunk-1-fg: #d97a3e;
+  --chunk-2-bg: #f1effc;
+  --chunk-2-fg: #7c6ae0;
+  --chunk-3-bg: #fef6e6;
+  --chunk-3-fg: #d9a62e;
+  --chunk-4-bg: #eaf3fc;
+  --chunk-4-fg: #3e7fd9;
+  --chunk-5-bg: #fceef3;
+  --chunk-5-fg: #d95c8c;
+
+  /* ---- Accent (mapped from chunk-index 2, not a new color) ---- */
+  --fill-accent: #7c6ae0;
+  --text-accent: #7c6ae0;
+  --border-accent: #7c6ae0;
+  --bg-accent: #f1effc;
+  --on-accent: #ffffff;
+
+  /* NOTE: --surface-0/1/2, --text-primary/--secondary etc. used to live
+     here as aliases (e.g. --surface-0: var(--bg)) for the dashboard
+     spec's naming. Removed: a custom property whose value is itself
+     var(--bg) resolves ONCE, using whichever element declares it — since
+     these were only ever declared here at :root, every palette override
+     below (which only redeclares --bg, --bg-panel, etc. on body) had no
+     effect on them. Elements using bg-surface-1 etc. stayed frozen at
+     the Vibrant palette forever. Tailwind's `surface` color key in
+     tailwind.config.js now points directly at --bg/--bg-elevated/
+     --bg-panel instead, which cascades correctly. Don't reintroduce an
+     indirection layer like this — CSS custom properties are not
+     dynamically re-evaluated for inheriting elements the way SCSS/LESS
+     variables are. */
+
+  /* ---- Type ---- */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+
+  /* ---- Radius ---- */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  /* ---- Shadow ---- */
+  --shadow-card: 0 2px 6px rgba(139, 92, 246, 0.08), 0 8px 24px rgba(139, 92, 246, 0.1);
+
+  /* Constant across every palette, including Midnight (dark) — chunk
+     identity backgrounds (--chunk-N-bg) are always light pastels
+     regardless of theme, so text sitting directly on one must stay a
+     fixed dark color rather than following --text (which flips to
+     near-white in dark palettes and would be unreadable there). */
+  --text-on-chunk: #1e1c19;
+
+  /* Accent-tinted button shadow — was hardcoded purple in a couple of
+     buttons regardless of active palette; now a token so it shifts with
+     --fill-accent like everything else. */
+  --shadow-accent: 0 4px 14px rgba(124, 106, 224, 0.35);
+}
+
+/* =====================================================================
+   PALETTE VARIANTS — selectable live from the Dashboard. Vibrant (above)
+   is the default/root and is not repeated here. Chunk identity colors
+   (--chunk-*-bg/-fg) and stage colors (--stage-*) are deliberately never
+   overridden by any palette block: chunk/stage color is meant to stay
+   constant regardless of theme, per the locked design system.
+   ===================================================================== */
+
+body[data-palette="bold"] {
+  --bg: #fbfbfb;
+  --bg-panel: #ffffff;
+  --bg-elevated: #f5f5f5;
+  --bg-hover: #eeeeee;
+  --border: #e2e2e2;
+  --border-soft: #ececec;
+  --border-strong: #cfcfcf;
+  --text: #0a0a0a;
+  --text-muted: #5a5a5a;
+  --text-dim: #9a9a9a;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.05), 0 6px 18px rgba(0, 0, 0, 0.06);
+  --fill-accent: #0a0a0a;
+  --text-accent: #0a0a0a;
+  --border-accent: #0a0a0a;
+  --bg-accent: #f0f0f0;
+  --shadow-accent: 0 4px 12px rgba(10, 10, 10, 0.28);
+}
+
+body[data-palette="warm"] {
+  --bg: #fdfaf5;
+  --bg-panel: #fffdf9;
+  --bg-elevated: #f8f1e4;
+  --bg-hover: #f1e6d2;
+  --border: #ecdfc6;
+  --border-soft: #f3e9d6;
+  --border-strong: #ddc9a3;
+  --shadow-card: 0 2px 8px rgba(180, 140, 60, 0.08), 0 8px 20px rgba(180, 140, 60, 0.08);
+  --fill-accent: #b08a3e;
+  --text-accent: #b08a3e;
+  --border-accent: #ddc9a3;
+  --bg-accent: #f8f1e4;
+  --shadow-accent: 0 4px 12px rgba(176, 138, 62, 0.32);
+}
+
+body[data-palette="slate"] {
+  --bg: #f6f7f9;
+  --bg-panel: #ffffff;
+  --bg-elevated: #eef1f5;
+  --bg-hover: #e4e8ee;
+  --border: #dde2e9;
+  --border-soft: #e7eaef;
+  --border-strong: #c7ced9;
+  --text: #1a2130;
+  --text-muted: #5c6577;
+  --text-dim: #8b93a3;
+  --shadow-card: 0 1px 3px rgba(30, 41, 59, 0.06), 0 8px 20px rgba(30, 41, 59, 0.08);
+  --fill-accent: #3b5c8f;
+  --text-accent: #3b5c8f;
+  --border-accent: #3b5c8f;
+  --bg-accent: #e8edf5;
+  --shadow-accent: 0 4px 12px rgba(59, 92, 143, 0.3);
+}
+
+body[data-palette="forest"] {
+  --bg: #f7f8f4;
+  --bg-panel: #ffffff;
+  --bg-elevated: #eef1e6;
+  --bg-hover: #e4e9d9;
+  --border: #e0e5d6;
+  --border-soft: #eaeee1;
+  --border-strong: #c9d2b8;
+  --text: #232a1e;
+  --text-muted: #5c6650;
+  --text-dim: #8f987f;
+  --shadow-card: 0 2px 6px rgba(74, 90, 52, 0.07), 0 8px 20px rgba(74, 90, 52, 0.08);
+  --fill-accent: #5c7a3f;
+  --text-accent: #4a6030;
+  --border-accent: #5c7a3f;
+  --bg-accent: #eaf0dd;
+  --shadow-accent: 0 4px 12px rgba(92, 122, 63, 0.3);
+}
+
+body[data-palette="coral"] {
+  --bg: #fffaf7;
+  --bg-panel: #ffffff;
+  --bg-elevated: #fdf0ea;
+  --bg-hover: #fbe3d7;
+  --border: #f6ddd0;
+  --border-soft: #faeae1;
+  --border-strong: #eec4ac;
+  --text: #2c1c14;
+  --text-muted: #7a5c4a;
+  --text-dim: #b0947f;
+  --shadow-card: 0 2px 8px rgba(216, 90, 48, 0.1), 0 8px 22px rgba(216, 90, 48, 0.1);
+  --fill-accent: #d85a30;
+  --text-accent: #d85a30;
+  --border-accent: #d85a30;
+  --bg-accent: #fdf0ea;
+  --shadow-accent: 0 4px 14px rgba(216, 90, 48, 0.32);
+}
+
+body[data-palette="midnight"] {
+  --bg: #14161c;
+  --bg-panel: #1b1e26;
+  --bg-elevated: #232631;
+  --bg-hover: #2b2f3c;
+  --border: #2f3340;
+  --border-soft: #282c38;
+  --border-strong: #3d4252;
+  --text: #eceef2;
+  --text-muted: #a6acbb;
+  --text-dim: #727889;
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.35);
+  --fill-accent: #8b7cf0;
+  --text-accent: #a99cf7;
+  --border-accent: #8b7cf0;
+  --bg-accent: #262a3a;
+  --shadow-accent: 0 4px 16px rgba(139, 124, 240, 0.4);
+}

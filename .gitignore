@@ -1,0 +1,43 @@
+# ---------- Python (backend/) ----------
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+backend/vector_db/
+backend/verification/stubs/**/__pycache__/
+
+# Don't commit personal/uploaded PDFs, but keep the bundled sample document
+# that the frontend's fixtures and TESTING.md both rely on.
+backend/data/*.pdf
+!backend/data/sample_resume_v2.pdf
+
+# ---------- Node (frontend/) ----------
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+*.local
+
+# ---------- Env / secrets (either half) ----------
+.env
+.env.local
+**/.env
+**/.env.local
+
+# ---------- Local-only documentation (not for public release) ----------
+# AI-context docs and superseded design proposals — kept on disk for your
+# own reference, deliberately never pushed to a public repo.
+docs/ai-context/
+docs/archive/
+
+# ---------- Editor / OS ----------
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+
+# ---------- Logs ----------
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
