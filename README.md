@@ -12,6 +12,19 @@ educational React frontend (`frontend/`) that visualizes each stage,
 explains what happened and why, and lets you change parameters and watch
 the effect ripple through downstream stages in real time.
 
+<table>
+  <tr>
+    <td><img src="docs/screenshots/Dashboard.jpg" width="100%" alt="Photo 1"></td>
+    <td><img src="docs/screenshots/UploadFile.jpg" width="100%" alt="Photo 1"></td>
+  </tr>
+    <tr>
+    <td><img src="docs/screenshots/RetrievalBasedOnQuestions.jpg" width="100%" alt="Photo 1"></td>
+    <td><img src="docs/screenshots/LLMResponseBasedOnQuestion.jpg" width="100%" alt="Photo 1"></td>
+  </tr>
+</table>
+
+
+
 ---
 
 ## Why this exists
