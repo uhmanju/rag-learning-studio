@@ -74,7 +74,7 @@ export default async function handler(req, res) {
         Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: typeof model === "string" && model ? model : "meta-llama/llama-prompt-guard-2-86m",
+        model: typeof model === "string" && model ? model : "openai/gpt-oss-20b",
         messages: [{ role: "user", content: prompt }],
         temperature: 0.2,
       }),
