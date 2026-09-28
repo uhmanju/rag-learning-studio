@@ -31,7 +31,7 @@ import { isRunningLocally } from "@/utils/environment";
 const PROXY_ENDPOINT = "/api/generate";
 const GROQ_API_BASE = "https://api.groq.com/openai/v1";
 
-export const GROQ_MODEL = "llama-3.1-8b-instant";
+export const GROQ_MODEL = "meta-llama/llama-prompt-guard-2-86m";
 
 export class GroqLLMProvider implements LLMProvider {
   readonly id = "groq";
